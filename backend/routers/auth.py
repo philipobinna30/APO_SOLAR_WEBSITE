@@ -1,3 +1,4 @@
+
 import os
 from datetime import datetime, timedelta, timezone
 
@@ -13,7 +14,6 @@ from models import User
 from schemas import (
     LoginRequest,
     TokenResponse,
-    UserCreate,
     UserResponse,
 )
 
@@ -173,50 +173,6 @@ def require_admin(
         )
 
     return current_user
-
-
-# ============================================================
-# REGISTER ADMIN
-# ============================================================
-
-@router.post(
-    "/register",
-    response_model=UserResponse,
-    status_code=status.HTTP_201_CREATED,
-)
-def register_admin(
-    data: UserCreate,
-    db: Session = Depends(get_db),
-):
-    existing_user = (
-        db.query(User)
-        .filter(User.email == data.email)
-        .first()
-    )
-
-    if existing_user:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="An account with this email already exists.",
-        )
-
-    hashed_password = password_hash.hash(
-        data.password
-    )
-
-    user = User(
-        full_name=data.full_name,
-        email=data.email,
-        password_hash=hashed_password,
-        role="admin",
-        is_active=True,
-    )
-
-    db.add(user)
-    db.commit()
-    db.refresh(user)
-
-    return user
 
 
 # ============================================================
