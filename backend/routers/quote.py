@@ -1,9 +1,3 @@
-import os
-from html import escape
-
-import sib_api_v3_sdk
-from sib_api_v3_sdk.rest import ApiException
-from dotenv import load_dotenv
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
@@ -17,12 +11,7 @@ from schemas import (
     QuoteRequestResponse,
 )
 
-
-# ============================================================
-# LOAD ENVIRONMENT VARIABLES
-# ============================================================
-
-load_dotenv()
+from email_service import send_quote_notification
 
 
 # ============================================================
@@ -33,209 +22,6 @@ router = APIRouter(
     prefix="/quote",
     tags=["Quote Requests"],
 )
-
-
-# ============================================================
-# BREVO EMAIL NOTIFICATION
-# ============================================================
-
-def send_quote_notification(
-    customer_name: str,
-    customer_email: str,
-    customer_phone: str,
-    service: str,
-    property_type: str | None,
-    budget: str | None,
-    location: str | None,
-    message: str | None,
-):
-    """
-    Send a notification email to APO Solar when a
-    customer submits a quote request.
-    """
-
-    api_key = os.getenv("BREVO_API_KEY")
-    sender_email = os.getenv("BREVO_SENDER_EMAIL")
-    sender_name = os.getenv(
-        "BREVO_SENDER_NAME",
-        "APO Solar Limited",
-    )
-    receiver_email = os.getenv("BREVO_RECEIVER_EMAIL")
-
-    # --------------------------------------------------------
-    # CHECK BREVO CONFIGURATION
-    # --------------------------------------------------------
-
-    if not api_key:
-        raise ValueError(
-            "BREVO_API_KEY is missing from .env"
-        )
-
-    if not sender_email:
-        raise ValueError(
-            "BREVO_SENDER_EMAIL is missing from .env"
-        )
-
-    if not receiver_email:
-        raise ValueError(
-            "BREVO_RECEIVER_EMAIL is missing from .env"
-        )
-
-    # --------------------------------------------------------
-    # CONFIGURE BREVO
-    # --------------------------------------------------------
-
-    configuration = sib_api_v3_sdk.Configuration()
-
-    configuration.api_key["api-key"] = api_key
-
-    api_client = sib_api_v3_sdk.ApiClient(
-        configuration
-    )
-
-    transactional_api = (
-        sib_api_v3_sdk.TransactionalEmailsApi(
-            api_client
-        )
-    )
-
-    # --------------------------------------------------------
-    # SAFELY FORMAT OPTIONAL VALUES
-    # --------------------------------------------------------
-
-    safe_name = escape(customer_name or "")
-    safe_email = escape(customer_email or "")
-    safe_phone = escape(customer_phone or "")
-    safe_service = escape(service or "")
-    safe_property = escape(
-        property_type or "Not provided"
-    )
-    safe_budget = escape(
-        budget or "Not provided"
-    )
-    safe_location = escape(
-        location or "Not provided"
-    )
-    safe_message = escape(
-        message or "No additional information provided."
-    )
-
-    # --------------------------------------------------------
-    # EMAIL HTML
-    # --------------------------------------------------------
-
-    html_content = f"""
-    <html>
-        <body>
-            <h2>New APO Solar Quote Request</h2>
-
-            <p>
-                A new quote request has been submitted
-                through the APO Solar Limited website.
-            </p>
-
-            <hr>
-
-            <h3>Customer Information</h3>
-
-            <p>
-                <strong>Name:</strong>
-                {safe_name}
-            </p>
-
-            <p>
-                <strong>Email:</strong>
-                {safe_email}
-            </p>
-
-            <p>
-                <strong>Phone:</strong>
-                {safe_phone}
-            </p>
-
-            <h3>Project Information</h3>
-
-            <p>
-                <strong>Service:</strong>
-                {safe_service}
-            </p>
-
-            <p>
-                <strong>Property Type:</strong>
-                {safe_property}
-            </p>
-
-            <p>
-                <strong>Estimated Budget:</strong>
-                {safe_budget}
-            </p>
-
-            <p>
-                <strong>Location:</strong>
-                {safe_location}
-            </p>
-
-            <h3>Customer Message</h3>
-
-            <p>
-                {safe_message}
-            </p>
-
-            <hr>
-
-            <p>
-                This notification was automatically generated
-                by the APO Solar Limited website.
-            </p>
-        </body>
-    </html>
-    """
-
-    # --------------------------------------------------------
-    # CREATE BREVO EMAIL
-    # --------------------------------------------------------
-
-    send_smtp_email = sib_api_v3_sdk.SendSmtpEmail(
-        sender=sib_api_v3_sdk.SendSmtpEmailSender(
-            email=sender_email,
-            name=sender_name,
-        ),
-        to=[
-            sib_api_v3_sdk.SendSmtpEmailTo(
-                email=receiver_email,
-            )
-        ],
-        reply_to=sib_api_v3_sdk.SendSmtpEmailReplyTo(
-            email=customer_email,
-            name=customer_name,
-        ),
-        subject="APO Solar - New Quote Request",
-        html_content=html_content,
-    )
-
-    # --------------------------------------------------------
-    # SEND EMAIL
-    # --------------------------------------------------------
-
-    try:
-        response = transactional_api.send_transac_email(
-            send_smtp_email
-        )
-
-        print("========================================")
-        print("QUOTE EMAIL SENT SUCCESSFULLY")
-        print("========================================")
-        print("Response:", response)
-
-        return response
-
-    except ApiException as exc:
-        print("========================================")
-        print("QUOTE EMAIL FAILED")
-        print("========================================")
-        print("Error:", exc)
-
-        raise
 
 
 # ============================================================
@@ -281,12 +67,12 @@ def create_quote_request(
         ) from exc
 
     # --------------------------------------------------------
-    # SEND BREVO NOTIFICATION
+    # SEND EMAIL NOTIFICATION
     #
     # IMPORTANT:
-    # If Brevo fails, the quote remains saved in the
-    # database. The customer submission is therefore
-    # not lost because of an email problem.
+    # The quote is already saved in PostgreSQL.
+    #
+    # If Brevo fails, the customer's quote is NOT lost.
     # --------------------------------------------------------
 
     try:
@@ -308,7 +94,7 @@ def create_quote_request(
         print("Email error:", exc)
 
     # --------------------------------------------------------
-    # RETURN SUCCESSFUL QUOTE RESPONSE
+    # RETURN SUCCESSFUL RESPONSE
     # --------------------------------------------------------
 
     return quote_request

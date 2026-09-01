@@ -1,3 +1,4 @@
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -9,6 +10,8 @@ from schemas import (
     ContactMessageUpdate,
     ContactMessageResponse,
 )
+
+from email_service import send_contact_notification
 
 
 # ============================================================
@@ -36,6 +39,10 @@ def create_contact_message(
     db: Session = Depends(get_db),
 ):
     try:
+        # ----------------------------------------------------
+        # CREATE DATABASE RECORD
+        # ----------------------------------------------------
+
         contact_message = ContactMessage(
             full_name=data.full_name,
             email=data.email,
@@ -48,8 +55,6 @@ def create_contact_message(
         db.commit()
         db.refresh(contact_message)
 
-        return contact_message
-
     except Exception as exc:
         db.rollback()
 
@@ -57,6 +62,37 @@ def create_contact_message(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Unable to submit contact message.",
         ) from exc
+
+    # --------------------------------------------------------
+    # SEND EMAIL NOTIFICATION
+    #
+    # IMPORTANT:
+    # The database record has already been saved.
+    #
+    # If Brevo fails, the customer's message is NOT lost.
+    # --------------------------------------------------------
+
+    try:
+        send_contact_notification(
+            customer_name=data.full_name,
+            customer_email=data.email,
+            customer_phone=data.phone,
+            subject=data.subject,
+            message=data.message,
+        )
+
+    except Exception as exc:
+        print(
+            "Contact message saved, but email notification "
+            "failed."
+        )
+        print("Email error:", exc)
+
+    # --------------------------------------------------------
+    # RETURN SUCCESSFUL RESPONSE
+    # --------------------------------------------------------
+
+    return contact_message
 
 
 # ============================================================
