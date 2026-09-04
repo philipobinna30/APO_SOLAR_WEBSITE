@@ -172,6 +172,10 @@ const Contact = () => {
                 </span>
 
                 <strong>
+                  Block 8, Mayfair Garden Complex,
+                  <br />
+                  Awoyaya, Ajah,
+                  <br />
                   Lagos, Nigeria
                 </strong>
 
