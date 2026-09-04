@@ -1,9 +1,9 @@
-
 /* =========================================================
    APO SOLAR LIMITED
    PROFESSIONAL GLOBAL WEBSITE STYLES
    Solar Energy Corporate Design System
 ========================================================= */
+
 
 /* =========================================================
    DESIGN VARIABLES
@@ -15,16 +15,21 @@
   --solar-yellow: #ffc857;
   --solar-green: #2f8f46;
   --solar-green-dark: #236c35;
+
   --navy: #071827;
   --navy-light: #102a3d;
+
   --dark: #0b1117;
   --dark-soft: #121b23;
+
   --white: #ffffff;
   --off-white: #fafbf9;
   --light: #f4f7f5;
+
   --text: #17212b;
   --text-light: #59636d;
   --muted: #7b858e;
+
   --border: #e2e7e5;
 
   --shadow-sm:
@@ -42,6 +47,7 @@
   --radius-md: 10px;
   --radius-lg: 16px;
 }
+
 
 /* =========================================================
    GLOBAL RESET
@@ -66,6 +72,7 @@ body {
 
   background: var(--white);
   color: var(--text);
+
   line-height: 1.6;
 
   -webkit-font-smoothing: antialiased;
@@ -92,6 +99,7 @@ button {
   cursor: pointer;
 }
 
+
 /* =========================================================
    NAVIGATION
 ========================================================= */
@@ -100,6 +108,7 @@ button {
   position: sticky;
   top: 0;
   z-index: 1000;
+
   width: 100%;
 
   background:
@@ -127,6 +136,7 @@ button {
 
   gap: 30px;
 }
+
 
 /* =========================================================
    PROFESSIONAL LOGO SECTION
@@ -167,6 +177,7 @@ button {
   opacity: 0.94;
 }
 
+
 /* =========================================================
    MAIN NAVIGATION
 ========================================================= */
@@ -177,6 +188,7 @@ button {
   justify-content: center;
 
   gap: 30px;
+
   margin-left: auto;
 }
 
@@ -233,6 +245,7 @@ button {
   color: var(--solar-gold-dark);
 }
 
+
 /* =========================================================
    NAV QUOTE BUTTON
 ========================================================= */
@@ -249,7 +262,8 @@ button {
   border:
     1px solid var(--solar-gold);
 
-  border-radius: var(--radius-sm);
+  border-radius:
+    var(--radius-sm);
 
   background:
     linear-gradient(
@@ -282,17 +296,20 @@ button {
       var(--solar-gold)
     );
 
-  transform: translateY(-2px);
+  transform:
+    translateY(-2px);
 
   box-shadow:
     0 10px 25px rgba(245, 166, 35, 0.25);
 }
+
 
 /* =========================================================
    NAVIGATION - TABLET
 ========================================================= */
 
 @media (max-width: 1050px) {
+
   .nav-container {
     gap: 20px;
   }
@@ -320,40 +337,140 @@ button {
   }
 }
 
+
 /* =========================================================
    NAVIGATION - MOBILE
+   Professional two-row mobile navigation
+   All navigation links remain visible
 ========================================================= */
 
 @media (max-width: 750px) {
-  .nav-container {
-    min-height: 70px;
-    gap: 15px;
+
+  .site-header {
+    width: 100%;
   }
 
+  .nav-container {
+    width: 100%;
+    min-height: auto;
+
+    padding: 8px 12px 0;
+    margin: 0;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 0;
+  }
+
+
+  /* =========================
+     LOGO
+  ========================= */
+
   .brand-logo {
-    width: 150px;
-    height: 50px;
+    width: auto;
+    height: 48px;
+
+    flex: 0 0 auto;
   }
 
   .brand-logo img {
-    max-width: 145px;
-    height: 42px;
-    max-height: 42px;
+    display: block;
+
+    width: auto;
+    max-width: 135px;
+
+    height: 40px;
+    max-height: 40px;
+
+    object-fit: contain;
   }
 
-  .main-navigation {
-    display: none;
-  }
+
+  /* =========================
+     QUOTE BUTTON
+  ========================= */
 
   .nav-quote-button {
-    min-height: 42px;
+    flex: 0 0 auto;
 
-    padding:
-      9px 14px;
+    min-height: 40px;
 
-    font-size: 0.76rem;
+    padding: 8px 13px;
+
+    border-radius: 5px;
+
+    font-size: 0.72rem;
+  }
+
+
+  /* =========================
+     MOBILE NAVIGATION
+     3 COLUMNS / 2 ROWS
+  ========================= */
+
+  .main-navigation {
+    order: 3;
+
+    display: grid;
+
+    width: 100%;
+    flex: 0 0 100%;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    align-items: center;
+
+    justify-content: stretch;
+
+    gap: 0;
+
+    margin: 5px 0 0;
+
+    padding: 6px 0 8px;
+
+    overflow: visible;
+  }
+
+  .main-navigation a {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    padding: 6px 3px;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+
+    text-align: center;
+  }
+
+  .main-navigation a::after {
+    left: 20%;
+    bottom: 1px;
+
+    width: 0;
+    height: 2px;
+  }
+
+  .main-navigation a:hover::after,
+  .main-navigation a.active::after {
+    width: 60%;
   }
 }
+
 
 /* =========================================================
    GLOBAL CONTAINER
@@ -368,6 +485,7 @@ button {
   padding:
     100px 0;
 }
+
 
 /* =========================================================
    TYPOGRAPHY
@@ -450,6 +568,7 @@ h3 {
 
 .section-heading {
   max-width: 780px;
+
   margin-bottom: 55px;
 }
 
@@ -459,8 +578,10 @@ h3 {
 
 .section-heading > p:last-child {
   color: var(--text-light);
+
   font-size: 1.02rem;
 }
+
 
 /* =========================================================
    BUTTONS
@@ -469,6 +590,7 @@ h3 {
 .primary-button,
 .outline-button {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 
@@ -477,7 +599,8 @@ h3 {
   padding:
     13px 27px;
 
-  border-radius: var(--radius-sm);
+  border-radius:
+    var(--radius-sm);
 
   font-weight: 800;
 
@@ -559,6 +682,7 @@ h3 {
 .text-link,
 .card-link {
   display: inline-flex;
+
   align-items: center;
 
   gap: 7px;
@@ -577,8 +701,10 @@ h3 {
 .text-link:hover,
 .card-link:hover {
   color: var(--solar-gold);
+
   gap: 11px;
 }
+
 
 /* =========================================================
    HERO SECTION
@@ -622,6 +748,7 @@ h3 {
 
   color: var(--white);
 }
+
 
 /* =========================================================
    HERO VISUAL COLOR GLOW
@@ -675,6 +802,7 @@ h3 {
   pointer-events: none;
 }
 
+
 /* =========================================================
    HERO OVERLAY
 ========================================================= */
@@ -696,6 +824,7 @@ h3 {
     );
 }
 
+
 /* =========================================================
    HERO CONTENT
 ========================================================= */
@@ -714,6 +843,7 @@ h3 {
 
 .hero-text h1 {
   margin-bottom: 27px;
+
   font-weight: 800;
 }
 
@@ -744,6 +874,7 @@ h3 {
 
   flex-wrap: wrap;
 }
+
 
 /* =========================================================
    HERO STAT CARD
@@ -794,6 +925,7 @@ h3 {
 
 .stat-item strong {
   color: #ffffff;
+
   font-size: 1rem;
 }
 
@@ -810,6 +942,7 @@ h3 {
   background:
     rgba(255, 255, 255, 0.22);
 }
+
 
 /* =========================================================
    INTRODUCTION
@@ -834,6 +967,7 @@ h3 {
 
   align-items: start;
 }
+
 
 /* =========================================================
    SERVICES
@@ -933,6 +1067,7 @@ h3 {
     var(--solar-gold-dark);
 
   font-size: 0.9rem;
+
   font-weight: 900;
 }
 
@@ -944,6 +1079,7 @@ h3 {
   color:
     var(--text-light);
 }
+
 
 /* =========================================================
    WHY CHOOSE US
@@ -1025,6 +1161,7 @@ h3 {
     rgba(255, 255, 255, 0.68);
 }
 
+
 /* =========================================================
    PROCESS
 ========================================================= */
@@ -1083,6 +1220,7 @@ h3 {
   color:
     var(--text-light);
 }
+
 
 /* =========================================================
    CTA
@@ -1146,6 +1284,7 @@ h3 {
     0 auto 30px;
 }
 
+
 /* =========================================================
    INNER PAGE HERO
 ========================================================= */
@@ -1153,7 +1292,8 @@ h3 {
 .page-hero {
   position: relative;
 
-  padding: 125px 0 120px;
+  padding:
+    125px 0 120px;
 
   overflow: hidden;
 
@@ -1241,6 +1381,7 @@ h3 {
   line-height: 1.85;
 }
 
+
 /* =========================================================
    CONTACT PAGE
 ========================================================= */
@@ -1249,7 +1390,8 @@ h3 {
   display: grid;
 
   grid-template-columns:
-    minmax(0, 0.9fr) minmax(0, 1.1fr);
+    minmax(0, 0.9fr)
+    minmax(0, 1.1fr);
 
   gap: 70px;
 
@@ -1257,6 +1399,7 @@ h3 {
 
   width: 100%;
 }
+
 
 /* =========================================================
    CONTACT INFORMATION
@@ -1281,6 +1424,7 @@ h3 {
 
   margin-bottom: 38px;
 }
+
 
 /* =========================================================
    CONTACT DETAILS
@@ -1373,6 +1517,7 @@ h3 {
   color: inherit;
 }
 
+
 /* =========================================================
    CONTACT FORM CARD
 ========================================================= */
@@ -1406,6 +1551,7 @@ h3 {
   font-size:
     clamp(1.7rem, 3vw, 2.35rem);
 }
+
 
 /* =========================================================
    CONTACT FORM
@@ -1512,11 +1658,13 @@ h3 {
   margin-top: 4px;
 }
 
+
 /* =========================================================
    CONTACT PAGE RESPONSIVENESS
 ========================================================= */
 
 @media (max-width: 1000px) {
+
   .contact-grid {
     grid-template-columns:
       1fr;
@@ -1534,6 +1682,7 @@ h3 {
 }
 
 @media (max-width: 700px) {
+
   .contact-grid {
     gap: 40px;
   }
@@ -1563,6 +1712,7 @@ h3 {
 }
 
 @media (max-width: 450px) {
+
   .contact-grid {
     gap: 35px;
   }
@@ -1588,6 +1738,7 @@ h3 {
   }
 }
 
+
 /* =========================================================
    ABOUT PAGE
 ========================================================= */
@@ -1598,7 +1749,18 @@ h3 {
   grid-template-columns:
     1fr 1fr;
 
-  gap: 30px;
+  gap: 70px;
+}
+
+.mission-grid h2 {
+  margin-bottom: 25px;
+}
+
+.mission-grid p {
+  color:
+    var(--text-light);
+
+  line-height: 1.85;
 }
 
 .mission-grid article {
@@ -1678,6 +1840,7 @@ h3 {
   line-height: 1.85;
 }
 
+
 /* =========================================================
    ABOUT VALUES
 ========================================================= */
@@ -1688,27 +1851,27 @@ h3 {
   grid-template-columns:
     repeat(4, 1fr);
 
-  gap: 20px;
+  gap: 25px;
 }
 
 .value-card {
-  position: relative;
-
-  min-height: 220px;
-
-  padding: 32px;
+  padding:
+    30px;
 
   border:
-    1px solid #e4e4e4;
+    1px solid var(--border);
 
-  border-radius: 10px;
+  border-radius:
+    var(--radius-md);
 
   background:
     #ffffff;
 
+  box-shadow:
+    var(--shadow-sm);
+
   transition:
     transform 0.25s ease,
-    border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
 
@@ -1727,7 +1890,7 @@ h3 {
 }
 
 .value-card h3 {
-  margin-bottom: 14px;
+  margin-bottom: 15px;
 
   color:
     #171717;
@@ -1737,21 +1900,19 @@ h3 {
 
 .value-card p {
   color:
-    #666666;
+    var(--text-light);
 
   line-height: 1.75;
 }
 
 .value-card:hover {
   transform:
-    translateY(-6px);
-
-  border-color:
-    rgba(245, 166, 35, 0.45);
+    translateY(-5px);
 
   box-shadow:
-    0 18px 40px rgba(0, 0, 0, 0.08);
+    var(--shadow-md);
 }
+
 
 /* =========================================================
    ABOUT PAGE CTA
@@ -1761,11 +1922,13 @@ h3 {
   position: relative;
 }
 
+
 /* =========================================================
    ABOUT PAGE RESPONSIVENESS
 ========================================================= */
 
 @media (max-width: 1000px) {
+
   .mission-grid {
     grid-template-columns:
       1fr;
@@ -1782,6 +1945,7 @@ h3 {
 }
 
 @media (max-width: 700px) {
+
   .page-hero {
     padding:
       90px 0 85px;
@@ -1825,76 +1989,6 @@ h3 {
   }
 }
 
-/* =========================================================
-   ABOUT PAGE
-========================================================= */
-
-.mission-grid {
-  display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap: 70px;
-}
-
-.mission-grid h2 {
-  margin-bottom: 25px;
-}
-
-.mission-grid p {
-  color:
-    var(--text-light);
-
-  line-height: 1.85;
-}
-
-.value-grid {
-  display: grid;
-
-  grid-template-columns:
-    repeat(4, 1fr);
-
-  gap: 25px;
-}
-
-.value-card {
-  padding:
-    30px;
-
-  border:
-    1px solid var(--border);
-
-  border-radius:
-    var(--radius-md);
-
-  background:
-    #ffffff;
-
-  box-shadow:
-    var(--shadow-sm);
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-}
-
-.value-card:hover {
-  transform:
-    translateY(-5px);
-
-  box-shadow:
-    var(--shadow-md);
-}
-
-.value-card h3 {
-  margin-bottom: 15px;
-}
-
-.value-card p {
-  color:
-    var(--text-light);
-}
 
 /* =========================================================
    PRODUCTS PAGE
@@ -1915,7 +2009,6 @@ h3 {
   position: relative;
 
   display: flex;
-
   flex-direction: column;
 
   overflow: hidden;
@@ -1950,6 +2043,7 @@ h3 {
   box-shadow:
     var(--shadow-lg);
 }
+
 
 /* =========================================================
    PRODUCT IMAGE
@@ -1996,6 +2090,7 @@ h3 {
   height: 100%;
 
   object-fit: cover;
+
   object-position: center;
 
   transition:
@@ -2006,6 +2101,7 @@ h3 {
   transform:
     scale(1.04);
 }
+
 
 /* =========================================================
    PRODUCT CONTENT
@@ -2064,6 +2160,7 @@ h3 {
     1.8;
 }
 
+
 /* =========================================================
    PRODUCT LINK
 ========================================================= */
@@ -2092,6 +2189,7 @@ h3 {
   color:
     var(--solar-gold);
 }
+
 
 /* =========================================================
    PRODUCT ADVICE SECTION
@@ -2130,11 +2228,13 @@ h3 {
     none;
 }
 
+
 /* =========================================================
    PRODUCT RESPONSIVENESS
 ========================================================= */
 
 @media (max-width: 900px) {
+
   .product-grid {
     grid-template-columns:
       1fr;
@@ -2147,6 +2247,7 @@ h3 {
 }
 
 @media (max-width: 700px) {
+
   .product-grid {
     gap:
       22px;
@@ -2169,6 +2270,7 @@ h3 {
 }
 
 @media (max-width: 450px) {
+
   .product-image {
     height:
       240px;
@@ -2193,6 +2295,7 @@ h3 {
   }
 }
 
+
 /* =========================================================
    PROJECTS PAGE
 ========================================================= */
@@ -2210,7 +2313,6 @@ h3 {
   position: relative;
 
   display: flex;
-
   flex-direction: column;
 
   overflow: hidden;
@@ -2244,6 +2346,7 @@ h3 {
     var(--shadow-md);
 }
 
+
 /* =========================================================
    PROJECT IMAGE
 ========================================================= */
@@ -2273,6 +2376,7 @@ h3 {
   height: 100%;
 
   object-fit: cover;
+
   object-position: center;
 
   transition:
@@ -2283,6 +2387,7 @@ h3 {
   transform:
     scale(1.04);
 }
+
 
 /* =========================================================
    PROJECT CONTENT
@@ -2338,6 +2443,7 @@ h3 {
     1.8;
 }
 
+
 /* =========================================================
    PROJECT LINK
 ========================================================= */
@@ -2370,6 +2476,7 @@ h3 {
   color:
     var(--solar-gold);
 }
+
 
 /* =========================================================
    PROJECT CTA / DARK SECTION
@@ -2439,11 +2546,13 @@ h3 {
     25px;
 }
 
+
 /* =========================================================
    PROJECTS RESPONSIVENESS
 ========================================================= */
 
 @media (max-width: 1000px) {
+
   .project-grid {
     grid-template-columns:
       repeat(2, 1fr);
@@ -2451,6 +2560,7 @@ h3 {
 }
 
 @media (max-width: 700px) {
+
   .project-grid {
     grid-template-columns:
       1fr;
@@ -2477,6 +2587,7 @@ h3 {
 }
 
 @media (max-width: 450px) {
+
   /* KEPT EXACTLY AS YOUR ORIGINAL SIZE */
   .project-image {
     height:
@@ -2499,5 +2610,507 @@ h3 {
 
     line-height:
       1.7;
+  }
+}
+
+
+/* =========================================================
+   HOME PAGE - MOBILE RESPONSIVENESS
+========================================================= */
+
+@media (max-width: 750px) {
+
+  /* =========================
+     GLOBAL MOBILE CONTAINER
+  ========================= */
+
+  .section-container {
+    width:
+      min(100% - 32px, var(--container));
+  }
+
+  .section-padding {
+    padding:
+      70px 0;
+  }
+
+
+  /* =========================
+     TYPOGRAPHY
+  ========================= */
+
+  h1 {
+    font-size:
+      clamp(2.25rem, 11vw, 3.6rem);
+
+    letter-spacing:
+      -1px;
+  }
+
+  h2 {
+    font-size:
+      clamp(1.8rem, 8vw, 2.7rem);
+
+    letter-spacing:
+      -0.5px;
+  }
+
+  h3 {
+    font-size:
+      1.2rem;
+  }
+
+  .eyebrow {
+    margin-bottom:
+      14px;
+
+    font-size:
+      0.66rem;
+
+    letter-spacing:
+      1.5px;
+  }
+
+  .eyebrow::before {
+    width:
+      22px;
+  }
+
+
+  /* =========================
+     HERO
+  ========================= */
+
+  .hero-section {
+    min-height:
+      auto;
+
+    padding:
+      85px 0 55px;
+
+    background-position:
+      center,
+      62% center;
+
+    background-size:
+      cover,
+      cover;
+  }
+
+  .hero-content {
+    width:
+      100%;
+  }
+
+  .hero-text {
+    max-width:
+      100%;
+  }
+
+  .hero-text h1 {
+    margin-bottom:
+      20px;
+
+    font-size:
+      clamp(2.3rem, 10.5vw, 3.5rem);
+
+    line-height:
+      1.08;
+
+    letter-spacing:
+      -1px;
+  }
+
+  .hero-description {
+    max-width:
+      100%;
+
+    margin-bottom:
+      28px;
+
+    font-size:
+      0.95rem;
+
+    line-height:
+      1.7;
+  }
+
+
+  /* =========================
+     HERO BUTTONS
+  ========================= */
+
+  .hero-actions {
+    display:
+      flex;
+
+    flex-direction:
+      column;
+
+    width:
+      100%;
+
+    gap:
+      12px;
+  }
+
+  .hero-actions .primary-button,
+  .hero-actions .outline-button {
+    width:
+      100%;
+
+    min-height:
+      50px;
+
+    padding:
+      12px 20px;
+
+    font-size:
+      0.9rem;
+  }
+
+
+  /* =========================
+     HERO STAT CARD
+  ========================= */
+
+  .hero-stat-card {
+    display:
+      grid;
+
+    width:
+      100%;
+
+    max-width:
+      100%;
+
+    margin-top:
+      45px;
+
+    padding:
+      18px 15px;
+
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    gap:
+      0;
+
+    border-radius:
+      var(--radius-md);
+  }
+
+  .stat-item {
+    min-width:
+      0;
+
+    padding:
+      0 8px;
+
+    text-align:
+      center;
+  }
+
+  .stat-item:first-child {
+    padding-left:
+      8px;
+  }
+
+  .stat-item strong {
+    font-size:
+      0.78rem;
+  }
+
+  .stat-item span {
+    font-size:
+      0.67rem;
+
+    line-height:
+      1.35;
+  }
+
+  .stat-divider {
+    width:
+      1px;
+
+    height:
+      100%;
+  }
+
+
+  /* =========================
+     INTRODUCTION
+  ========================= */
+
+  .two-column-layout {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      30px;
+  }
+
+  .section-text {
+    font-size:
+      0.95rem;
+
+    line-height:
+      1.75;
+  }
+
+
+  /* =========================
+     SECTION HEADINGS
+  ========================= */
+
+  .section-heading {
+    margin-bottom:
+      35px;
+  }
+
+  .section-heading > p:last-child {
+    font-size:
+      0.95rem;
+
+    line-height:
+      1.7;
+  }
+
+
+  /* =========================
+     SERVICES
+  ========================= */
+
+  .service-grid {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      18px;
+  }
+
+  .service-card {
+    padding:
+      27px 23px;
+  }
+
+  .service-number {
+    margin-bottom:
+      18px;
+  }
+
+  .service-card h3 {
+    margin-bottom:
+      12px;
+  }
+
+  .service-card p {
+    font-size:
+      0.94rem;
+
+    line-height:
+      1.7;
+  }
+
+
+  /* =========================
+     WHY CHOOSE US
+  ========================= */
+
+  .benefits-grid {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      0;
+  }
+
+  .benefit {
+    padding:
+      24px 0;
+  }
+
+  .benefit h3 {
+    margin:
+      12px 0;
+  }
+
+  .benefit p {
+    font-size:
+      0.94rem;
+
+    line-height:
+      1.7;
+  }
+
+
+  /* =========================
+     PROCESS
+  ========================= */
+
+  .process-grid {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      25px;
+  }
+
+  .process-step {
+    padding-top:
+      18px;
+  }
+
+  .process-step h3 {
+    margin:
+      12px 0;
+  }
+
+  .process-step p {
+    font-size:
+      0.94rem;
+
+    line-height:
+      1.7;
+  }
+
+
+  /* =========================
+     CTA
+  ========================= */
+
+  .cta-section {
+    padding:
+      75px 0;
+  }
+
+  .cta-section h2 {
+    margin-bottom:
+      18px;
+
+    font-size:
+      clamp(1.9rem, 8vw, 2.6rem);
+  }
+
+  .cta-section p {
+    font-size:
+      0.95rem;
+
+    line-height:
+      1.7;
+
+    margin-bottom:
+      25px;
+  }
+
+  .cta-section .primary-button {
+    width:
+      100%;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 450px) {
+
+  .nav-container {
+    padding-left:
+      10px;
+
+    padding-right:
+      10px;
+  }
+
+  .brand-logo img {
+    max-width:
+      120px;
+
+    height:
+      36px;
+
+    max-height:
+      36px;
+  }
+
+  .nav-quote-button {
+    min-height:
+      38px;
+
+    padding:
+      7px 11px;
+
+    font-size:
+      0.68rem;
+  }
+
+  .main-navigation {
+    gap:
+      0;
+
+    padding-top:
+      5px;
+  }
+
+  .main-navigation a {
+    font-size:
+      0.68rem;
+  }
+
+  .section-container {
+    width:
+      calc(100% - 28px);
+  }
+
+  .section-padding {
+    padding:
+      60px 0;
+  }
+
+  .hero-section {
+    padding-top:
+      70px;
+  }
+
+  .hero-text h1 {
+    font-size:
+      clamp(2.15rem, 10.8vw, 3rem);
+  }
+
+  .hero-description {
+    font-size:
+      0.9rem;
+  }
+
+  .hero-stat-card {
+    padding:
+      15px 8px;
+  }
+
+  .stat-item {
+    padding:
+      0 5px;
+  }
+
+  .stat-item:first-child {
+    padding-left:
+      5px;
+  }
+
+  .stat-item strong {
+    font-size:
+      0.7rem;
+  }
+
+  .stat-item span {
+    font-size:
+      0.61rem;
+  }
+
+  .service-card {
+    padding:
+      24px 20px;
   }
 }
